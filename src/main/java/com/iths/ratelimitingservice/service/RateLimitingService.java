@@ -21,7 +21,7 @@ public class RateLimitingService {
         if (requests < maxRequests) {
             operations.increment(key, 1);
             if (requests == 0) {
-                redisTemplate.expire(key, Duration.ofMinutes(1)); // Återställ räknaren varje minut
+                redisTemplate.expire(key, Duration.ofMinutes(1));
             }
             return true;
         }
