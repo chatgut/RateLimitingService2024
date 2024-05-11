@@ -10,9 +10,9 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -21,24 +21,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class RateLimitStatusControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
     private WebApplicationContext context;
+
+    private MockMvc mockMvc;
 
     @MockBean
     private RateLimitingService rateLimitingService;
 
     @BeforeEach
-    public void setUp() {
+    public void setup() {
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(context)
-                .apply(springSecurity())
+                .apply(SecurityMockMvcConfigurers.springSecurity())
                 .build();
     }
 
     @Test
-    @WithMockUser(username="user", roles={"USER"})
+    @WithMockUser(username = "user", roles = {"USER"})
     public void getRateLimitStatus_ReturnsCorrectStatus() throws Exception {
         when(rateLimitingService.getRemainingRequests("userId", "Standard")).thenReturn(5);
         mockMvc.perform(get("/api/rate_limit_status")
