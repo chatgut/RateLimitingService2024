@@ -22,7 +22,7 @@ public class RateLimitingService {
      *
      * @param userId   the ID of the user making the request
      * @param userType the type of the user (e.g., "Standard", "Premium")
-     * @return true if the user is allowed to make a request, false otherwise
+     * @return
      */
     public boolean isAllowed(String userId, String userType) {
         String key = "rate_limit:" + userId;

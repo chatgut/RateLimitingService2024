@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.function.Function;
 
-@Component  // This annotation is crucial
+@Component
 public class JwtUtil {
 
     private String SECRET_KEY = "secret";

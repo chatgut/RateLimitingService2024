@@ -51,10 +51,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 }
             }
         } catch (Exception e) {
-            // Respond with an unauthorized error message
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().write("JWT Token validation failed: " + e.getMessage());
-            return; // Stop further processing
+            return;
         }
 
         chain.doFilter(request, response);
