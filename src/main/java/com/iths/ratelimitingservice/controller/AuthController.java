@@ -13,7 +13,6 @@ public class AuthController {
 
     private final JwtUtil jwtUtil;
 
-    // Constructor injection of the JwtUtil
     public AuthController(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
     }
