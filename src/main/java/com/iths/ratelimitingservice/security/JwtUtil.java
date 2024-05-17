@@ -13,7 +13,7 @@ import java.util.function.Function;
 public class JwtUtil {
 
     @Value("${jwt.secret}")
-    private String SECRET_KEY; // Secret key loads from propertiess
+    private String SECRET_KEY; // Secret key loads from properties
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
