@@ -15,11 +15,13 @@ public class RateLimitStatusController {
 
     @GetMapping("/api/rate_limit_status")
     public ResponseEntity<?> getRateLimitStatus(@RequestParam String userId, @RequestParam String userType) {
+        boolean isAllowed = rateLimitingService.isAllowed(userId, userType);
         int remainingRequests = rateLimitingService.getRemainingRequests(userId, userType);
-        if (remainingRequests >= 0) {
+
+        if (isAllowed) {
             return ResponseEntity.ok().body("You have " + remainingRequests + " requests remaining this minute.");
         } else {
-            return ResponseEntity.badRequest().body("Could not retrieve rate limit status.");
+            return ResponseEntity.status(429).body("Rate limit exceeded. Please try again later.");
         }
     }
 }
