@@ -39,7 +39,10 @@ public class RateLimitStatusControllerTest {
     @Test
     @WithMockUser(username = "user", roles = {"USER"})
     public void getRateLimitStatus_ReturnsCorrectStatus() throws Exception {
+        // Mock the service to return that the request is allowed and there are 5 remaining requests
+        when(rateLimitingService.isAllowed("userId", "Standard")).thenReturn(true);
         when(rateLimitingService.getRemainingRequests("userId", "Standard")).thenReturn(5);
+
         mockMvc.perform(get("/api/rate_limit_status")
                         .param("userId", "userId")
                         .param("userType", "Standard"))
