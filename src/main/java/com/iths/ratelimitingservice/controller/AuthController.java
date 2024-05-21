@@ -20,7 +20,7 @@ public class AuthController {
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthRequest authenticationRequest) {
         try {
-            // Dummy validation for username
+            // Dummy validation for usernamee
             if ("user1".equals(authenticationRequest.getUsername())) {
                 final String jwt = jwtUtil.generateToken(authenticationRequest.getUsername());
                 return ResponseEntity.ok(Collections.singletonMap("jwt", jwt));
